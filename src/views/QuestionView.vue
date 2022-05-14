@@ -189,7 +189,7 @@ import {
   getQuestionListApi,
   deleteQuestionApi,
   createQuestionApi,
-  updateQuestionApi
+  updateQuestionApi,
 } from "@/api/api";
 import formatDate from "@/mixins/formatDate";
 
@@ -199,7 +199,7 @@ export default {
   mixins: [formatDate],
   data() {
     return {
-      selectedData:{},  //代表就是我们选听那一行；
+      selectedData: {}, //代表就是我们选听那一行；
       title: "",
       questionList: [],
       dialogVisible: false,
@@ -253,12 +253,12 @@ export default {
           placeholder: "请输入选项D的值,非必填",
         },
       ],
-      isCreateEvent:true,
+      isCreateEvent: true,
     };
   },
   watch: {
     questionOptions(newValue) {
-      let res = newValue.find(item=> item.key == this.answer)
+      let res = newValue.find((item) => item.key == this.answer);
       this.answer = !res ? "" : res.key;
     },
   },
@@ -295,7 +295,7 @@ export default {
       res.answer = this.answer;
       res.level = this.form.level;
 
-      if(!this.isCreateEvent)  res.id = this.selectedData.id;
+      if (!this.isCreateEvent) res.id = this.selectedData.id;
       return res;
     },
     initFormPrams() {
@@ -340,24 +340,24 @@ export default {
       const params = this.formatFormParams();
       let validate = this.validateFormParams(params);
       if (!validate) return;
-      let successMsg = '';
+      let successMsg = "";
       let res;
-      if(this.isCreateEvent){
+      if (this.isCreateEvent) {
         res = await createQuestionApi(params);
-        successMsg = '创建成功';
-      }else{
+        successMsg = "创建成功";
+      } else {
         res = await updateQuestionApi(params);
-        successMsg = '编辑成功';
+        successMsg = "编辑成功";
       }
-      
-        if (res.data.status == 1) {
-          this.getQuestionList();
-          this.$message({
-            type: "success",
-            message: successMsg,
-          });
-          this.hiddenDialog();
-        }
+
+      if (res.data.status == 1) {
+        this.getQuestionList();
+        this.$message({
+          type: "success",
+          message: successMsg,
+        });
+        this.hiddenDialog();
+      }
     },
     hiddenDialog() {
       this.dialogVisible = false;
@@ -376,12 +376,14 @@ export default {
         this.isCreateEvent = false;
         this.form.title = data.title;
 
-        let questionOptions = JSON.parse(JSON.stringify(this.questionOptionsTemp));
+        let questionOptions = JSON.parse(
+          JSON.stringify(this.questionOptionsTemp)
+        );
 
-        questionOptions[0].value = data.questionA;
-        questionOptions[1].value = data.questionB;
-        questionOptions[2].value = data.questionC;
-        questionOptions[3].value = data.questionD;
+        questionOptions.forEach((item, index) => {
+          questionOptions[index].value = data["question" + item.key];
+        });
+        
         this.questionOptions = questionOptions.filter((item) => item.value);
         this.answer = data.answer;
         this.form.level = data.level;

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div v-for="item in options" :key="item.id">
+    <div v-for="item in questionOptions" :key="item.id">
       <label for="">{{ item.title }}</label>
       <el-input v-model="item.value" placeholder="请输入内容"></el-input>
     </div>
 
     <el-select v-model="value" placeholder="请选择">
       <el-option
-        v-for="item in options"
+        v-for="item in questionOptions"
         :key="item.key" 
         :label="item.title"
         :value="item.key"
@@ -18,8 +18,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
   data() {
     return {
