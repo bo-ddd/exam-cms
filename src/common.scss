@@ -1,0 +1,144 @@
+body,
+div,
+span,
+header,
+footer,
+nav,
+section,
+aside,
+article,
+ul,
+dl,
+dt,
+dd,
+li,
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+i,
+b,
+textarea,
+button,
+input,
+select,
+figure,
+figcaption {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-style: normal;
+    text-decoration: none;
+    border: none;
+    font-family: "Microsoft Yahei", sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    &:focus {
+        outline: none;
+    }
+}
+
+input[type="button"],
+input[type="submit"],
+input[type="search"],
+input[type="reset"] {
+    -webkit-appearance: none;
+}
+
+textarea {
+    -webkit-appearance: none;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+// 公共样式
+.flex-between{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.align-center{
+    display: flex;
+    align-items: center;
+}
+
+.flex{
+    display: flex;
+}
+
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mr-5{
+    margin-right: 5px;
+}
+
+.mr-15{
+    margin-right: 15px;
+}
+
+.ml-5{
+    margin-left:5px;
+}
+
+.mr-10{
+    margin-right: 10px;
+}
+
+.mt-10{
+    margin-top:10px;
+}
+
+.mt-15{
+    margin-top:15px;
+}
+
+.mt-20{
+    margin-top: 20px;
+}
+
+.mt-30{
+    margin-top: 30px;
+}
+
+.ml-50{
+    margin-left:50px;
+}
+
+.shadow{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+}
+
+
+.c-bababa{
+    color:#bababa;
+}
+
+.c-ff4400{
+    color:#ff4400;
+}
+
+// 项目中的样式
+.icon{
+    width:24px;
+    height:24px;
+}
