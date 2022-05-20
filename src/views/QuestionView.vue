@@ -218,7 +218,7 @@ export default {
           label: "困难",
         },
       ],
-      questionOptions: [],
+      questionOptions: [],   //  option.value = '';  questionA = 'aaaaa'
       answer: "",
       pageNum: 1,
       pageSize: 2,
@@ -337,9 +337,11 @@ export default {
 
     // 创建/编辑题
     async createQuestion() {
-      const params = this.formatFormParams();
       let validate = this.validateFormParams(params);
+      let params = this.formatFormParams();
       if (!validate) return;
+      if(!params.questionC) params.questionC = '';
+      if(!params.questionD) params.questionD = '';
       let successMsg = "";
       let res;
       if (this.isCreateEvent) {

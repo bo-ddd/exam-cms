@@ -117,3 +117,18 @@ export const registerApi = function (payload = {}) {
  export const updateQuestionApi = function (payload = {}) {
     return axios.post('/question/update', payload,  getPostConfig())
 }
+
+/**
+ * @description 修改用户信息;
+ * @param payload <object>
+ * @param payload.avatarName <string>  昵称
+ * @param payload.name <string> 真实姓名
+ * @param payload.sex <number> 性别  1 : 男  0：女 
+ * @param payload.provinceNo  <string> 省编号
+ * @param payload.cityNo <string> 市编号
+ * @param payload.areaNo <string> 区编号
+ * @param payload.desc <string> 个人介绍
+ * **/ 
+ export const updateUserInfoApi = function (payload = {}) {
+    return axios.post('/user/update', payload,  getPostConfig())
+}

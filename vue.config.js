@@ -14,12 +14,6 @@ module.exports = defineConfig({
         changeOrigin: true,
         pathRewrite: {'^/api' : ''}
       },
-      '/newApi':{
-        target:'http://localhost:7002',  //服务端的域名地址;
-        ws: true,   
-        changeOrigin: true,
-        pathRewrite: {'^/api' : ''}
-      },
     }
   }
 })

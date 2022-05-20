@@ -20,6 +20,16 @@ const routes = [
         name: 'question',
         component: () => import(/* webpackChunkName: "question" */ '../views/QuestionView.vue')
       },
+      {
+        path: '/userInfo',
+        name: 'userInfo',
+        component: () => import(/* webpackChunkName: "userInfo" */ '../views/UserInfo.vue')
+      },
+      {
+        path: '/myDiary',
+        name: 'myDiary',
+        component: () => import(/* webpackChunkName: "myDiary" */ '../views/userCenter/MyDiary.vue')
+      },
     ]
   },
   {
