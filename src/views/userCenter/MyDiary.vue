@@ -39,30 +39,21 @@
       <div class="chat-room">
         <h1 class="title">团队聊天</h1>
         <div class="main">
-          <div class="container">
-            <div class="info-item">
-              <div class="avatar-img">G</div>
-              <div class="info">
-                我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容
+          <div class="container" ref="scrollChat">
+            <div v-for="(item, index) in chat" :key="index">
+              <div class="info-item mine" v-if="userInfo.id == item.id">
+                <div class="info">
+                  {{ item.msg }}
+                </div>
               </div>
-            </div>
-            <div class="info-item mine">
-              <div class="info">
-                我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容
+              <div v-else class="info-item">
+                <div class="avatar-img">
+                  {{ item.avatarName.substring(0, 1) }}
+                </div>
+                <div class="info">
+                  {{ item.msg }}
+                </div>
               </div>
-              <div class="avatar-img">G</div>
-            </div>
-            <div class="info-item mine">
-              <div class="info">
-                我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容
-              </div>
-              <div class="avatar-img">G</div>
-            </div>
-            <div class="info-item mine">
-              <div class="info">
-                我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容我是消息内容
-              </div>
-              <div class="avatar-img">G</div>
             </div>
           </div>
         </div>
@@ -71,8 +62,9 @@
             type="text"
             placeholder="Type a message"
             class="ipt-send mr-5"
+            v-model="chatInfo.msg"
           />
-          <span class="el-icon-s-promotion"></span>
+          <span class="el-icon-s-promotion" @click="sendSocketMsg"></span>
         </div>
       </div>
     </div>
@@ -80,12 +72,89 @@
 </template>
 
 <script>
+import { getUserInfoApi } from "@/api/api";
 export default {
   data() {
     return {
       value: new Date(),
       checkList: [],
+      chat: [],
+      chatInfo: {
+        id: "",
+        type:1, // 1.文字  2.图片
+        avatarName: "",
+        msg: "",
+      },
+      userInfo: {},
     };
+  },
+  created() {
+    this.getUserInfo();
+  },
+  mounted() {
+    window.addEventListener(
+      "keydown",
+      (event) => {
+        if (event.code == "Enter") {
+          this.sendSocketMsg();
+          //使用KeyboardEvent.keyCode处理事件并将handled设置为true。
+          event.preventDefault();
+        }
+      },
+      true
+    );
+  },
+  sockets: {
+    connect: function () {
+      //建立连接后调用的函数
+      console.log("socket connected...");
+    },
+    res: function (message) {
+      console.log("服务的返回的信息", message);
+      this.chat.push(message);
+      this.$nextTick(()=>{
+        let childNodes = this.$refs.scrollChat.childNodes;
+        let lastIndex = childNodes.length - 1;
+        Array.from(childNodes)[lastIndex].scrollIntoView(false);
+      })
+    },
+    disconnect: function () {
+      console.log("disconnect!");
+    },
+  },
+  methods: {
+    async getUserInfo() {
+      let res = await getUserInfoApi();
+      if (res.data.status == 1) {
+        this.userInfo = res.data.data[0];
+        console.log(this.userInfo);
+        this.chatInfo.id = this.userInfo.id;
+        this.avatarName = this.userInfo.avatarName;
+      }
+    },
+    sendSocketImg() {
+      if (!this.chatInfo.msg) return;
+      //接收服务端相对应的webdata数据
+      //向服务端发送消息
+
+      // let fr = new FileReader();
+      // fr.readAsDataURL(file);
+      // fr.onload = function(){
+      //   console.log(fr.result);
+      // }
+
+      this.chatInfo.type = 2;
+      this.$socket.emit("sendImg", this.chatInfo);
+      this.chatInfo.msg = null;
+    },
+    sendSocketMsg() {
+      if (!this.chatInfo.msg) return;
+      //接收服务端相对应的webdata数据
+      //向服务端发送消息
+      this.chatInfo.type = 1;
+      this.$socket.emit("server", this.chatInfo);
+      this.chatInfo.msg = null;
+    },
   },
 };
 </script>
@@ -179,22 +248,25 @@ export default {
     overflow: hidden;
     .main {
       position: relative;
-      border-radius: 10px;
+      border-radius: 10px 10px 0 0;
       background: #fafafc;
-      padding: 20px;
-      box-sizing: border-box;
       overflow: scroll;
       .container {
+        width: 100%;
+        box-sizing: border-box;
         position: absolute;
         height: 100%;
         top: 0;
         left: 0;
+        padding: 20px;
         overflow: scroll;
         & .info-item {
-          display: grid;
-          grid-template-columns: 50px auto;
+          display: flex;
+          gap: 10px;
+          align-items: center;
           margin: 20px 0;
           & .avatar-img {
+            min-width: 40px;
             width: 40px;
             height: 40px;
             line-height: 40px;
@@ -205,35 +277,43 @@ export default {
             text-align: center;
           }
           & .info {
+            font-size: 14px;
+            padding: 12px 15px;
             background: #fff;
             border-radius: 4px;
-            line-height: 40px;
+            word-break: break-all;
+            box-sizing: border-box;
           }
         }
         & .mine {
-          grid-template-columns: auto 50px;
+          justify-content: flex-end;
           & .avatar-img {
             justify-self: right;
+          }
+          & .info {
+            background: #edecfc;
           }
         }
       }
     }
-      .footer {
+    .footer {
+      background: #fafafc;
+      border-radius: 4px;
+      display: grid;
+      grid-template-columns: auto 45px;
+      align-items: center;
+      padding: 0 10px;
+      .ipt-send {
         background: #fff;
-        border-radius: 4px;
-        display: grid;      
-        grid-template-columns: auto 45px;
-        align-items: center;
-        padding: 0 10px;
-        .ipt-send {
-          background: #fff;
-        }
-        & ::v-deep .el-icon-s-promotion {
-          color: #422e8f;
-        justify-self: center;
-          font-size: 24px;
-        }
+        height: 40px;
+        text-indent: 10px;
       }
+      & ::v-deep .el-icon-s-promotion {
+        color: #422e8f;
+        justify-self: center;
+        font-size: 24px;
+      }
+    }
   }
 }
 </style>

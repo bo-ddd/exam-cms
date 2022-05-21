@@ -110,6 +110,7 @@ export default {
     async getUserInfo() {
       let res = await getUserInfoApi();
       this.form = res.data.data[0];
+      delete this.form.id;
       delete this.form.createdAt;
       delete this.form.updatedAt;
     },
