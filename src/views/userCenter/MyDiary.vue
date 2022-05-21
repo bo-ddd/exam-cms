@@ -90,6 +90,7 @@ export default {
   },
   created() {
     this.getUserInfo();
+    this.$socket.emit('addUser');
   },
   mounted() {
     window.addEventListener(
@@ -107,7 +108,10 @@ export default {
   sockets: {
     connect: function () {
       //建立连接后调用的函数
-      console.log("socket connected...");
+      console.log("socket connected...++++++++");
+    },
+    userCount:function(message){
+      console.log('服务端userCount返回的信息',message);
     },
     res: function (message) {
       console.log("服务的返回的信息", message);
@@ -120,6 +124,7 @@ export default {
     },
     disconnect: function () {
       console.log("disconnect!");
+      this.$socket.emit('removeUser');
     },
   },
   methods: {
