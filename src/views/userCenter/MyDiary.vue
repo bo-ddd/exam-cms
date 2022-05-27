@@ -45,6 +45,9 @@
                 <div class="info">
                   {{ item.msg }}
                 </div>
+                <div class="avatar-img">
+                  {{ item.avatarName.substring(0, 1) }}
+                </div>
               </div>
               <div v-else class="info-item">
                 <div class="avatar-img">
@@ -90,7 +93,6 @@ export default {
   },
   created() {
     this.getUserInfo();
-    this.$socket.emit('addUser');
   },
   mounted() {
     window.addEventListener(
@@ -109,11 +111,12 @@ export default {
     connect: function () {
       //建立连接后调用的函数
       console.log("socket connected...++++++++");
+      this.$socket.emit('addUser');
     },
     userCount:function(message){
       console.log('服务端userCount返回的信息',message);
     },
-    res: function (message) {
+    receiveMsg: function (message) {
       console.log("服务的返回的信息", message);
       this.chat.push(message);
       this.$nextTick(()=>{
@@ -127,6 +130,9 @@ export default {
       this.$socket.emit('removeUser');
     },
   },
+  destroyed(){
+    this.$socket.emit('removeUser');
+  },
   methods: {
     async getUserInfo() {
       let res = await getUserInfoApi();
@@ -134,7 +140,7 @@ export default {
         this.userInfo = res.data.data[0];
         console.log(this.userInfo);
         this.chatInfo.id = this.userInfo.id;
-        this.avatarName = this.userInfo.avatarName;
+        this.chatInfo.avatarName = this.userInfo.avatarName;
       }
     },
     sendSocketImg() {
@@ -157,7 +163,7 @@ export default {
       //接收服务端相对应的webdata数据
       //向服务端发送消息
       this.chatInfo.type = 1;
-      this.$socket.emit("server", this.chatInfo);
+      this.$socket.emit("sendMsg", this.chatInfo);
       this.chatInfo.msg = null;
     },
   },
@@ -197,15 +203,15 @@ export default {
   height: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap:20px;
 }
 
 .aside {
   display: grid;
   grid-template-rows: auto 1fr;
+  gap:20px 0;
   .task {
-    .main {
-      padding: 12px 20px;
-    }
+      background:#fafafc;
   }
 }
 

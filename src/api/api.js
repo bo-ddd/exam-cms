@@ -132,3 +132,39 @@ export const registerApi = function (payload = {}) {
  export const updateUserInfoApi = function (payload = {}) {
     return axios.post('/user/update', payload,  getPostConfig())
 }
+
+/**
+ * @description 获取用户列表
+ * **/
+export const getUserListApi = function(payload = {}){
+    return axios.post('/user/list',payload, getPostConfig());
+}
+
+/**
+ * @description 创建任务
+ * @param payload 
+ * @param payload.name 任务名称
+ * @param payload.desc 任务描述
+ * @param payload.duration 任务时长
+ * @param payload.level  任务是否紧急 1： 紧急  0：普通
+ * **/
+export const createTaskApi = function( payload = {}){
+    return axios.post('/task/create', payload, getPostConfig());
+}
+
+/**
+ * @description 发布任务
+ * @param payload
+ * @param payload.userId  //<array[<number>]>  用户ID的集合
+ * @param payload.taskId  //任务id;
+ * **/
+export const releaseTaskApi = function(payload = {}){
+    return axios.post('/task/release', payload, getPostConfig());
+}
+
+/**
+ * @description 获取任务列表
+ * **/
+export const getTaskListApi = function(payload = {}){
+    return axios.post('/task/list', payload, getPostConfig());
+}

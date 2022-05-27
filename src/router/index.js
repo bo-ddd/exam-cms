@@ -30,6 +30,16 @@ const routes = [
         name: 'myDiary',
         component: () => import(/* webpackChunkName: "myDiary" */ '../views/userCenter/MyDiary.vue')
       },
+      {
+        path: '/createTask',
+        name: 'createTask',
+        component: () => import(/* webpackChunkName: "createTask" */ '../views/task/CreateTask.vue')
+      },
+      {
+        path: '/taskList',
+        name: 'taskList',
+        component: () => import(/* webpackChunkName: "taskList" */ '../views/task/TaskList.vue')
+      },
     ]
   },
   {

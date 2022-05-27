@@ -467,9 +467,11 @@ export default {
 
 
 <style scoped lang="scss">
+.question{
+  background:#fff;
+}
 .condition {
   border-radius: 4px;
-  background: #f9f9f9;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -501,6 +503,7 @@ export default {
   }
 }
 .list {
+  padding:20px;
   display: flex;
   flex-direction: column; //  flex 默认是 横向布局，  这个是把横向转成竖向
   gap: 10px 0;
@@ -550,7 +553,7 @@ export default {
 }
 
 .pagination {
-  padding: 15px 0;
+  padding: 0 20px 20px;
 }
 
 .dialog {

@@ -37,6 +37,16 @@
                   >我的任务</el-menu-item
                 >
               </el-menu-item-group>
+              <el-menu-item-group>
+                <el-menu-item index="0-2" @click="navigator('createTask')"
+                  >创建任务</el-menu-item
+                >
+              </el-menu-item-group>
+              <el-menu-item-group>
+                <el-menu-item index="0-3" @click="navigator('taskList')"
+                  >任务列表</el-menu-item
+                >
+              </el-menu-item-group>
             </el-submenu>
             <el-submenu index="1">
               <template slot="title">
@@ -65,7 +75,7 @@
             </el-submenu>
           </el-menu>
         </el-aside>
-        <el-main>
+        <el-main class="main">
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -150,5 +160,9 @@ export default {
 
 .aside {
   background: #0b1b34;
+}
+
+.main{
+  background:rgb(252, 244, 244);
 }
 </style>

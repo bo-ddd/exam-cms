@@ -34,9 +34,10 @@ figcaption {
     font-style: normal;
     text-decoration: none;
     border: none;
-    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
+
     &:focus {
         outline: none;
     }
@@ -60,110 +61,133 @@ body {
 }
 
 
-::-webkit-scrollbar{
-    width:0;
-    height:0;
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 
 // 公共样式
-.flex-between{
-    display:flex;
+.flex-between {
+    display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.align-center{
+.align-center {
     display: flex;
     align-items: center;
 }
 
-.flex{
+.flex {
     display: flex;
 }
 
-.flex-center{
+.flex-center {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.flex-column{
+.flex-column {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.w-180{
-    width:180px;
+.w-180 {
+    width: 180px;
 }
 
-.mr-5{
+.w-250 {
+    width:250px;
+}
+
+.mr-5 {
     margin-right: 5px;
 }
 
-.mr-15{
+.mr-15 {
     margin-right: 15px;
 }
 
-.ml-5{
-    margin-left:5px;
+.ml-5 {
+    margin-left: 5px;
 }
 
-.ml-20{
-    margin-left:20px;
+.ml-20 {
+    margin-left: 20px;
 }
 
-.mr-10{
+.mr-10 {
     margin-right: 10px;
 }
 
-.mt-10{
-    margin-top:10px;
+.mt-10 {
+    margin-top: 10px;
 }
 
-.mt-15{
-    margin-top:15px;
+.mt-15 {
+    margin-top: 15px;
 }
 
-.mt-20{
+.mt-20 {
     margin-top: 20px;
 }
 
-.mt-30{
+.mt-30 {
     margin-top: 30px;
 }
 
-.ml-50{
-    margin-left:50px;
+.ml-50 {
+    margin-left: 50px;
 }
 
-.shadow{
+.shadow {
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
 }
 
-
-.c-bababa{
-    color:#bababa;
+.c-bababa {
+    color: #bababa;
 }
 
-.c-ff4400{
-    color:#ff4400;
+.c-909090{
+    color:#909090;
+}
+
+.c-ff4400 {
+    color: #ff4400;
 }
 
 // 项目中的样式
-.icon{
-    width:24px;
-    height:24px;
+.icon {
+    width: 24px;
+    height: 24px;
 }
 
-:root{
+:root {
     --header-height: 60px;
+    --form-color: #606266;
 }
 
-.word-wrap {
-	table-layout: fixed;
-	word-wrap: break-all;
-	word-break: normal;
-	overflow: hidden;
+.wrap{
+    height:100%;
+    background:#fff;
+    padding:15px 12px;
+    box-sizing: border-box;
+}
+
+
+.form-color {
+    color: var(--form-color);
+}
+
+.title-1{
+    padding:15px 12px;
+    background:#fff;
+}
+
+.pagination{
+    padding:12px 15px;
+    background:#fff;
 }
