@@ -2,11 +2,11 @@
   <div class="my-diary">
     <div class="aside">
       <div class="calendar">
-        <h1 class="title">日历</h1>
+        <el-title>日历</el-title>
         <el-calendar v-model="value"></el-calendar>
       </div>
       <div class="task">
-        <h1 class="title">今日任务</h1>
+        <el-title>今日任务</el-title>
         <div class="main">
           <el-checkbox-group v-model="checkList">
             <el-checkbox label="A">
@@ -23,7 +23,7 @@
     </div>
     <div class="chat">
       <div class="push">
-        <h1 class="title">推送</h1>
+        <el-title>推送</el-title>
         <div class="main">
           <div class="align-center">
             <span class="el-icon-edit-outline mr-10"></span>
@@ -37,7 +37,7 @@
         </div>
       </div>
       <div class="chat-room">
-        <h1 class="title">团队聊天</h1>
+        <el-title>团队聊天</el-title>
         <div class="main">
           <div class="container" ref="scrollChat">
             <div v-for="(item, index) in chat" :key="index">
@@ -75,7 +75,12 @@
 </template>
 
 <script>
-import { getUserInfoApi } from "@/api/api";
+import { mapActions } from 'vuex';
+
+//mapState 
+// mapState 是映射在 computed中的;
+// mapActions  映射 在 methods方法的;
+// 他们的使用的语法是一模一样的;
 export default {
   data() {
     return {
@@ -84,7 +89,7 @@ export default {
       chat: [],
       chatInfo: {
         id: "",
-        type:1, // 1.文字  2.图片
+        type: 1, // 1.文字  2.图片
         avatarName: "",
         msg: "",
       },
@@ -111,37 +116,35 @@ export default {
     connect: function () {
       //建立连接后调用的函数
       console.log("socket connected...++++++++");
-      this.$socket.emit('addUser');
+      this.$socket.emit("addUser");
     },
-    userCount:function(message){
-      console.log('服务端userCount返回的信息',message);
+    userCount: function (message) {
+      console.log("服务端userCount返回的信息", message);
     },
     receiveMsg: function (message) {
       console.log("服务的返回的信息", message);
       this.chat.push(message);
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         let childNodes = this.$refs.scrollChat.childNodes;
         let lastIndex = childNodes.length - 1;
         Array.from(childNodes)[lastIndex].scrollIntoView(false);
-      })
+      });
     },
     disconnect: function () {
       console.log("disconnect!");
-      this.$socket.emit('removeUser');
+      this.$socket.emit("removeUser");
     },
   },
-  destroyed(){
-    this.$socket.emit('removeUser');
+  destroyed() {
+    this.$socket.emit("removeUser");
   },
   methods: {
+    // 辅助函数 mapActions 
+    ...mapActions(['getUserInfoApi']),
     async getUserInfo() {
-      let res = await getUserInfoApi();
-      if (res.data.status == 1) {
-        this.userInfo = res.data.data[0];
-        console.log(this.userInfo);
-        this.chatInfo.id = this.userInfo.id;
-        this.chatInfo.avatarName = this.userInfo.avatarName;
-      }
+      this.userInfo = await this.getUserInfoApi();
+      this.chatInfo.id = this.userInfo.id;
+      this.chatInfo.avatarName = this.userInfo.avatarName;
     },
     sendSocketImg() {
       if (!this.chatInfo.msg) return;
@@ -203,28 +206,26 @@ export default {
   height: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap:20px;
+  gap: 20px;
 }
 
 .aside {
   display: grid;
   grid-template-rows: auto 1fr;
-  gap:20px 0;
+  gap: 20px 0;
   .task {
-      background:#fafafc;
+    background: #fafafc;
   }
 }
 
-.title {
-  padding: 15px 0;
-}
-
 .push {
+  background:#fff;
   .main {
     background-color: #58419b;
-    padding: 15px;
     border-radius: 10px;
     position: relative;
+    padding:10px;
+    margin:10px 15px;
     .tip {
       color: #fff;
       font-size: 18px;

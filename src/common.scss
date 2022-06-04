@@ -67,12 +67,6 @@ body {
 }
 
 // 公共样式
-.flex-between {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .align-center {
     display: flex;
     align-items: center;
@@ -82,10 +76,38 @@ body {
     display: flex;
 }
 
-.flex-center {
-    display: flex;
-    justify-content: center;
+
+// mixin的传参   他和js的函数一样，支持传参；
+// @mixin 
+//  @media screen (width > 300){}
+// 入参要以$开头,他是变量的意思 
+// 在js中,函数其实可以有默认参数
+// function fn(params = {}){}
+
+// 样式进阶
+// 前提条件  这种混合(mixin)的语法,必须要在预编译中才可以使用;
+// 如果是css,是不支持的;
+// 预编译: scss less  stylus;
+
+// mixin 的使用
+// mixin 的传参
+// mixin 的默认赋值
+@mixin flex-content($content : center){
+    display:flex;
+    justify-content:$content;
     align-items: center;
+}
+
+.flex-around{
+    @include flex-content(space-around);
+}
+
+.flex-between {
+    @include flex-content(space-between);
+}
+
+.flex-center {
+    @include flex-content;
 }
 
 .flex-column {
@@ -100,7 +122,7 @@ body {
 }
 
 .w-250 {
-    width:250px;
+    width: 250px;
 }
 
 .mr-5 {
@@ -151,12 +173,32 @@ body {
     color: #bababa;
 }
 
-.c-909090{
-    color:#909090;
+.c-909090 {
+    color: #909090;
 }
 
 .c-ff4400 {
     color: #ff4400;
+}
+
+.over-hidden {
+    overflow: hidden;
+}
+
+.fs-20 {
+    font-size: 20px;
+}
+
+.fs-16 {
+    font-size: 16px;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+.fs-18 {
+    font-size: 18px;
 }
 
 // 项目中的样式
@@ -170,24 +212,23 @@ body {
     --form-color: #606266;
 }
 
-.wrap{
-    height:100%;
-    background:#fff;
-    padding:15px 12px;
+.wrap {
+    height: 100%;
+    background: #fff;
+    padding: 15px 12px;
     box-sizing: border-box;
 }
-
 
 .form-color {
     color: var(--form-color);
 }
 
-.title-1{
-    padding:15px 12px;
-    background:#fff;
+.title-1 {
+    padding: 15px 12px;
+    background: #fff;
 }
 
-.pagination{
-    padding:12px 15px;
-    background:#fff;
+.pagination {
+    padding: 12px 15px;
+    background: #fff;
 }

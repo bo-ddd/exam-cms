@@ -38,7 +38,7 @@
 <script>
 import { loginApi } from "@/api/api";
 import { encrypt } from "@/assets/utils/index";
-import CaptchaComponent from '@/components/CaptchaComponent.vue'
+import CaptchaComponent from '@/components/user/CaptchaComponent.vue'
 export default {
   components:{
     'el-captcha':CaptchaComponent

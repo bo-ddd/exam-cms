@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import LayoutView from '../views/LayoutView.vue'
 
 Vue.use(VueRouter)
 
@@ -8,7 +8,8 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: HomeView,
+    redirect:'/myDiary',
+    component: LayoutView,
     children:[
       {
         path: '/about',
@@ -40,6 +41,16 @@ const routes = [
         name: 'taskList',
         component: () => import(/* webpackChunkName: "taskList" */ '../views/task/TaskList.vue')
       },
+      {
+        path: '/roleManage',
+        name: 'roleManage',
+        component: () => import(/* webpackChunkName: "roleManage" */ '../views/role/RoleManage.vue')
+      },
+      {
+        path:'/createRole',
+        name:'createRole',
+        component: () => import(/* webpackChunkName: "createRole" */ '../views/role/CreateRole.vue')
+      }
     ]
   },
   {

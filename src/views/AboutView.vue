@@ -1,58 +1,38 @@
 <template>
-  <div class="chat">
-    <div v-for="(data, index) in chatList" :key="index">
-      <div v-if="userInfo.id == data.id">
-        <div class="item main">是每一条消息 小王</div>
-      </div>
-      <div class="item" v-else>
-        <div>小张：是每一条消息</div>
-      </div>
+  <div>
+    <div class="links flex-around">
+      <el-link type="primary">创建角色</el-link>
+      <el-link type="primary">新建分组</el-link>
     </div>
+    <div class="links flex-center">
+      <el-link type="primary">创建角色</el-link>
+      <el-link type="primary">新建分组</el-link>
+    </div>
+    <div class="links flex-between">
+      <el-link type="primary">创建角色</el-link>
+      <el-link type="primary">新建分组</el-link>
+    </div>
+
+    <user-logout>
+      <el-button>退出登录</el-button>
+    </user-logout>
   </div>
 </template>
 
-<script> 
+<script>
+import UserLogout from '@/components/user/UserLogout.vue'
+
 export default {
-  data() {
-    return {
-      userInfo: {
-        id: 1,
-      },
-      chatList: [
-        {
-          id: 1,
-          msg: "hello world",
-        },
-        {
-          id: 2,
-          msg: "这是别人发的消息",
-        },
-        {
-          id: 1,
-          msg: "hello world222",
-        },
-        {
-          id: 2,
-          msg: "这是别人发的消息222222222222",
-        },
-      ],
-    };
+  components:{
+    UserLogout
   },
-};
+}
 </script>
 
-<style scoped>
-.chat {
-  width: 400px;
-  margin: 0 auto;
-  border: 1px solid red;
-}
-
-.chat .item {
-  display: flex;
-}
-
-.chat .main {
-  flex-direction: row-reverse;
+<style scoped lang="scss">
+.links{
+  width:200px;
+  border:1px solid red;
+  padding:10px;
 }
 </style>

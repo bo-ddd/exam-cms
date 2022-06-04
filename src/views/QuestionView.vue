@@ -22,14 +22,15 @@
       </div>
       <div class="operation">
         <div class="buttons">
-          <el-button type="primary" @click="showDialog">添加习题</el-button>
-          <el-button type="primary">批量导入</el-button>
-          <el-button type="primary">加入公共练习题</el-button>
+          <el-button type="primary" size="mini" @click="showDialog">添加习题</el-button>
+          <el-button type="primary" size="mini">批量导入</el-button>
+          <el-button type="primary" size="mini">加入公共练习题</el-button>
         </div>
 
         <el-input
           placeholder="请输入要搜索的内容"
           suffix-icon="el-icon-search"
+          size="mini"
         ></el-input>
       </div>
     </div>
@@ -191,7 +192,7 @@ import {
   createQuestionApi,
   updateQuestionApi,
 } from "@/api/api";
-import formatDate from "@/mixins/formatDate";
+import formatDate from "@/mixins/coms/formatDate";
 
 // 总结 ：
 // 1. JSON.parse(JSOn.stringify) 解决深浅拷贝及应用场景
@@ -484,7 +485,8 @@ export default {
     gap: 0 10px;
     color: #ccc;
     & .type {
-      padding: 4px 10px;
+      font-size:12px;
+      padding: 2px 6px;
       border-radius: 15px;
       border: 1px solid #b7b7b7;
     }
@@ -503,15 +505,14 @@ export default {
   }
 }
 .list {
-  padding:20px;
+  padding:15px 12px;
   display: flex;
   flex-direction: column; //  flex 默认是 横向布局，  这个是把横向转成竖向
   gap: 10px 0;
-  margin-top: 20px;
   & .item {
     border: 1px solid #e2e5ea;
     border-radius: 4px;
-    padding: 14px 20px;
+    padding: 12px 15px;
     .header {
       & .created-time {
         color: #bababa;
@@ -539,6 +540,8 @@ export default {
     }
     & .container {
       & .title {
+        display:felx;
+        align-items: center;
         padding: 12px 0;
       }
       & .options {

@@ -64,7 +64,6 @@
 
 <script>
 import citydata from "@/assets/lib/citydata.json";
-import { updateUserInfoApi, getUserInfoApi } from "@/api/api";
 export default {
   data() {
     return {
@@ -108,14 +107,16 @@ export default {
   },
   methods: {
     async getUserInfo() {
-      let res = await getUserInfoApi();
-      this.form = res.data.data[0];
+      let userInfo = await this.$store.dispatch('getUserInfoApi');
+      this.form = JSON.parse(JSON.stringify(userInfo));
       delete this.form.id;
       delete this.form.createdAt;
       delete this.form.updatedAt;
+      delete this.form.identify;
     },
     async onSubmit() {
-      let res = await updateUserInfoApi(this.form);
+      // 几乎所有的修改用户信息以后,都百分百分重新获取用记信息列表;
+      let res = await this.$store.dispatch('updateUserInfoApi',this.form);
       if (res.data.status == 1) {
         this.$message({
           type: "success",

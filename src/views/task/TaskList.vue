@@ -90,7 +90,7 @@
             <div class="operation">
               <el-link type="primary">编辑任务</el-link>
               <el-link type="primary">发布任务</el-link>
-              <el-link type="primary">领取任务</el-link>
+              <el-link type="primary" @click="receiveTask">领取任务</el-link>
               <el-link type="primary">查看详情</el-link>
             </div>
           </template>
@@ -124,7 +124,7 @@ export default {
       },
       tableData: [],
       pageNum: 1,
-      pageSize: 10,
+      pageSize: 5,
       totalCount: 0,
       pickerOptions: {
         shortcuts: [
@@ -161,17 +161,19 @@ export default {
     };
   },
   created() {
+    // 获取任务列表
     this.getTaskList();
+    //获取用户列表
     this.getUserList();
   },
   methods: {
+    // 领取任务
+    receiveTask(){
+      console.log(this.$store.state.userInfo);
+    },
     async getUserList() {
-      let res = await getUserListApi({
-        pagination: false,
-      });
+      let res = await getUserListApi({pagination: false});
       this.users = res.data.data.data.rows;
-      console.log("--------------users-------------");
-      console.log(this.users);
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);

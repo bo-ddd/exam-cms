@@ -67,7 +67,7 @@
 
 <script>
 import { registerApi } from "@/api/api";
-import CaptchaComponent from '@/components/CaptchaComponent.vue';
+import CaptchaComponent from '@/components/user/CaptchaComponent.vue';
 export default {
   components:{
     'el-captcha':CaptchaComponent
