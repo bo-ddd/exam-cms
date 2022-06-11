@@ -28,3 +28,7 @@ export const formatDate = (time) => {
     return (year + "年" + month + "月" + date + "日" + "  星期" + day + "  " + hours + ":" + minutes + ":" + seconds)
 }
 
+export const count = function(a,b){
+    return a + b;
+}
+
