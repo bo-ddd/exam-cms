@@ -42,7 +42,9 @@
         </el-title>
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="角色成员" name="roles">角色成员</el-tab-pane>
-          <el-tab-pane label="功能权限" name="premisstion">功能权限</el-tab-pane>
+          <el-tab-pane label="功能权限" name="premission">
+            <permission-list></permission-list>
+          </el-tab-pane>
           <el-tab-pane label="数据范围" name="range">数据范围</el-tab-pane>
         </el-tabs>
       </el-main>
@@ -51,13 +53,17 @@
 </template>
 
 <script>
+import PermissionList from '@/components/role/PermissionList'
 import { mapActions } from 'vuex';
 export default {
+  components:{
+    PermissionList
+  },
   data() {
     return {
       defaultActive: "",
       menu: [],
-      activeName: "premisstion",
+      activeName: "premission",
     };
   },
   created() {

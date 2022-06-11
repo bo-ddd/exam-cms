@@ -47,6 +47,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "roleManage" */ '../views/role/RoleManage.vue')
       },
       {
+        path: '/permissionConfig',
+        name: 'permissionConfig',
+        component: () => import(/* webpackChunkName: "permissionConfig" */ '../views/role/PermissionConfig.vue')
+      },
+      {
         path:'/createRole',
         name:'createRole',
         component: () => import(/* webpackChunkName: "createRole" */ '../views/role/CreateRole.vue')

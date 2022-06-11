@@ -68,6 +68,11 @@ export default [
                 path: "/createRole",
                 name: "createRole",
             },
+            {
+                label:'权限配置',
+                path:'/permissionConfig',
+                name:'permissionConfig'
+            }
         ],
     },
     {

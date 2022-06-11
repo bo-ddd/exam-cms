@@ -180,6 +180,19 @@ export const createTaskApi = function (payload = {}) {
 }
 
 /**
+ * @description 修改任务
+ * @param payload 
+ * @param payload.taskId 任务id
+ * @param payload.name 任务名称
+ * @param payload.desc 任务描述
+ * @param payload.duration 任务时长
+ * @param payload.level  任务是否紧急 1： 紧急  0：普通
+ * **/
+ export const updateTaskApi = function (payload = {}) {
+    return axios.post('/task/update', payload, postConfig);
+}
+
+/**
  * @description 发布任务
  * @param payload
  * @param payload.userId  //<array[<number>]>  用户ID的集合
@@ -194,6 +207,15 @@ export const releaseTaskApi = function (payload = {}) {
  * **/
 export const getTaskListApi = function (payload = {}) {
     return axios.post('/task/list', payload, postConfig);
+}
+
+/**
+ * @description 获取任务详情
+ * @param payload 
+ * @param payload.taskId  任务id;
+ * **/
+export const getTaskDetailApi = function(payload = {}){
+    return axios.post('/task/detail', payload, postConfig);
 }
 
 /**
