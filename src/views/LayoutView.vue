@@ -9,19 +9,19 @@
           <layout-menu></layout-menu>
         </el-aside>
         <el-main class="main">
-          <router-view></router-view>
+            <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
 <script>
-import LayoutMenu from '@/components/layout/LayoutMenu.vue';
-import LayoutHeader from '@/components/layout/LayoutHeader.vue';
+import LayoutMenu from "@/components/layout/LayoutMenu.vue";
+import LayoutHeader from "@/components/layout/LayoutHeader.vue";
 
 export default {
   name: "HomeView",
-  components:{
+  components: {
     LayoutMenu,
     LayoutHeader,
   },
@@ -29,8 +29,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-.header{
+.header {
   background: #367fee;
 }
 

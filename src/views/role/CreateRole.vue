@@ -1,3 +1,14 @@
 <template>
-    <div>this is create role page</div>
+    <div>
+        <permission-list></permission-list>
+    </div>
 </template>
+
+<script>
+import PermissionList from '@/components/role/PermissionList.vue'
+export default {
+    components:{
+        PermissionList
+    }
+}
+</script>

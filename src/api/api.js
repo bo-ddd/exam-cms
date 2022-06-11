@@ -180,6 +180,19 @@ export const createTaskApi = function (payload = {}) {
 }
 
 /**
+ * @description 修改任务
+ * @param payload 
+ * @param payload.taskId 任务id
+ * @param payload.name 任务名称
+ * @param payload.desc 任务描述
+ * @param payload.duration 任务时长
+ * @param payload.level  任务是否紧急 1： 紧急  0：普通
+ * **/
+ export const updateTaskApi = function (payload = {}) {
+    return axios.post('/task/update', payload, postConfig);
+}
+
+/**
  * @description 发布任务
  * @param payload
  * @param payload.userId  //<array[<number>]>  用户ID的集合
@@ -197,6 +210,15 @@ export const getTaskListApi = function (payload = {}) {
 }
 
 /**
+ * @description 获取任务详情
+ * @param payload 
+ * @param payload.taskId  任务id;
+ * **/
+export const getTaskDetailApi = function(payload = {}){
+    return axios.post('/task/detail', payload, postConfig);
+}
+
+/**
  * @description 获取角色组列表
  * **/
 export const getRoleGroupListApi = function (payload = { pagination: false }) {
@@ -208,4 +230,48 @@ export const getRoleGroupListApi = function (payload = { pagination: false }) {
  * **/
 export const getRoleListApi = function (payload = { pagination: false }) {
     return axios.post('/role/list', payload, postConfig);
+}
+
+/**
+ * @description 获取权限配置列表 
+ * **/
+export const getPermissionListApi = function(payload = {pagination: false}){
+    return axios.post('/permission/list',payload, postConfig)
+};
+
+/**
+ * @description 创建权限
+ * @param payload
+ * @param payload.title 权限名称
+ * @param payload.type 权限类型 1:模块 2:子模块 3:功能
+ * **/
+export const createPermissionApi = function(payload){
+    return axios.post('/permission/create', payload, postConfig)
+}
+
+/**
+ * @description 更新权限
+ * @param payload
+ * @param payload.id 权限id;
+ * @param payload.title 权限名称
+ * @param payload.type 权限类型
+ * **/
+export const updatePermissionApi = function(payload){
+    return axios.post('/permission/update', payload, postConfig)
+}
+
+/**
+ * @description 删除权限
+ * @param payload 
+ * @param payload.id 权限id 可以传数组,代表多个;
+ * **/
+export const deletePermissionApi = function(payload){
+    return axios.post('/permission/delete', payload, postConfig)
+}
+
+/**
+ * @description 获取角色权限列表
+ * **/
+export const getRolePermissionListApi = function(payload = {}){
+    return axios.post('/rolePermission/list', payload, postConfig);
 }

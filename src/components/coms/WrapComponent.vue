@@ -8,5 +8,6 @@
 .el-wrap{
     height:100%;
     background:#fff;
+    overflow-y: scroll;
 }
 </style>

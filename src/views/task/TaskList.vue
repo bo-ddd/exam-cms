@@ -51,22 +51,15 @@
         </el-table-column>
         <el-table-column prop="taskName" label="任务名称" width="170">
         </el-table-column>
-        <el-table-column
-          label="是否紧急"
-          align="center"
-        >
+        <el-table-column label="是否紧急" align="center">
           <template slot-scope="scope">
             <el-tag v-if="scope.row.level == 1" type="danger">紧急</el-tag>
             <el-tag v-else>普通</el-tag>
           </template>
         </el-table-column>
-        <el-table-column
-          label="任务时长"
-          align="center"
-          width="80"
-        >
+        <el-table-column label="任务时长" align="center" width="80">
           <template slot-scope="scope">
-            <span>{{scope.row.duration}}小时</span>
+            <span>{{ scope.row.duration }}小时</span>
           </template>
         </el-table-column>
         <el-table-column prop="createdAt" label="创建时间" align="center">
@@ -86,11 +79,18 @@
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center">
-          <template>
+          <template slot-scope="scope">
             <div class="operation">
-              <el-link type="primary">编辑任务</el-link>
+              <el-link type="primary" @click="openFormDialog(scope.row)"
+                >编辑任务</el-link
+              >
               <el-link type="primary">发布任务</el-link>
-              <el-link type="primary" @click="receiveTask">领取任务</el-link>
+              <el-link
+                v-if="scope.row.isReceived != 1"
+                type="primary"
+                @click="receiveTask"
+                >领取任务</el-link
+              >
               <el-link type="primary">查看详情</el-link>
             </div>
           </template>
@@ -109,14 +109,25 @@
       >
       </el-pagination>
     </div>
+
+    <el-dialog title="编辑任务" :visible.sync="dialogFormVisible">
+      <task-form ref="form" @submit="editTask"></task-form>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getTaskListApi, getUserListApi } from "@/api/api";
+import TaskForm from '@/components/task/TaskForm.vue'
+import { getTaskListApi,releaseTaskApi, getUserListApi, updateTaskApi } from "@/api/api";
 export default {
+  components:{
+    TaskForm
+  },
   data() {
-    return {
+    return {      
+      dialogComponentName:'',
+      dialogFormVisible: false,
+      taskId:null,
       searchParams: {
         taskId: null,
         date: "",
@@ -167,32 +178,51 @@ export default {
     this.getUserList();
   },
   methods: {
+    // 发布任务；
+    async releaseTask(taskId,userIds) {
+      if(!userIds || !userIds.length) return;
+      await releaseTaskApi({
+        userIds,
+        taskId,
+      });
+    },
+    async openFormDialog(data){
+      this.taskId = data.id;
+      this.dialogFormVisible = true;
+      this.$nextTick(()=>{
+        this.$refs.form.init(this.taskId);
+      })
+    },
+    async editTask(form,userIds) {
+      await updateTaskApi(form);
+      this.$message({
+        type:'success',
+        message:'任务编辑成功'
+      })
+      await this.releaseTask(this.taskId,userIds);
+      this.getTaskList();
+      this.dialogFormVisible = false;
+    },
     // 领取任务
-    receiveTask(){
-      console.log(this.$store.state.userInfo);
+    receiveTask() {
+      
     },
     async getUserList() {
-      let res = await getUserListApi({pagination: false});
+      let res = await getUserListApi({ pagination: false });
       this.users = res.data.data.data.rows;
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
       this.pageSize = val;
       this.getTaskList();
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
       this.pageNum = val;
       this.getTaskList();
     },
     async getTaskList() {
       let { pageSize, pageNum } = this;
-      let res = await getTaskListApi({
-        pageSize,
-        pageNum,
-      });
+      let res = await getTaskListApi({pageSize,pageNum});
       this.tableData = res.data.data.rows;
-      console.log(res.data.data);
       this.totalCount = res.data.data.count;
     },
   },

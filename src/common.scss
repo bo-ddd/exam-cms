@@ -66,6 +66,10 @@ body {
     height: 0;
 }
 
+.inline-block{
+    display: inline-block;
+}
+
 // 公共样式
 .align-center {
     display: flex;
@@ -76,22 +80,6 @@ body {
     display: flex;
 }
 
-
-// mixin的传参   他和js的函数一样，支持传参；
-// @mixin 
-//  @media screen (width > 300){}
-// 入参要以$开头,他是变量的意思 
-// 在js中,函数其实可以有默认参数
-// function fn(params = {}){}
-
-// 样式进阶
-// 前提条件  这种混合(mixin)的语法,必须要在预编译中才可以使用;
-// 如果是css,是不支持的;
-// 预编译: scss less  stylus;
-
-// mixin 的使用
-// mixin 的传参
-// mixin 的默认赋值
 @mixin flex-content($content : center){
     display:flex;
     justify-content:$content;
@@ -137,6 +125,10 @@ body {
     margin-left: 5px;
 }
 
+.ml-15{
+    margin-left:15px;
+}
+
 .ml-20 {
     margin-left: 20px;
 }
@@ -163,6 +155,14 @@ body {
 
 .ml-50 {
     margin-left: 50px;
+}
+
+.mb-10{
+    margin-bottom:10px;
+}
+
+.mb-20{
+    margin-bottom:20px;
 }
 
 .shadow {

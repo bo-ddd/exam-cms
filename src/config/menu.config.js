@@ -31,7 +31,7 @@ export default [
         },
         children: [
             {
-                label: '题库',
+                label: '题库管理',
                 path: "/question",
                 name: "question",
             },
@@ -68,6 +68,11 @@ export default [
                 path: "/createRole",
                 name: "createRole",
             },
+            {
+                label:'权限配置',
+                path:'/permissionConfig',
+                name:'permissionConfig'
+            }
         ],
     },
     {
