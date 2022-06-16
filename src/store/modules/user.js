@@ -3,17 +3,19 @@ import {
     updateUserInfoApi,
     logoutApi,
 } from '@/api/api';
-import cache from '@/assets/utils/cache'
+
+import session from '@/assets/utils/session';
+
 export default {
     state: {
-        userInfo: cache.getItem('userInfo'),
+        userInfo: session.getItem('userInfo'),
         needGetUserInfo: true,
     },
     getters: {
     },
     mutations: {
         USERINFO: (state, payload) => {
-            cache.setItem('userInfo',payload);
+            session.setItem('userInfo',payload);
             state.userInfo = payload;
         },
         NEED_GETUSERINFO: (state, payload) => {

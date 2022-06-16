@@ -7,6 +7,8 @@ import './common.scss'
 import  ElementUI from 'element-ui';
 import VueSocketIO from 'vue-socket.io'
 
+import Cache from '@/assets/utils/cache'
+
 import Navigator from '@/assets/utils/navigator';
 import GlobalComponent from '@/components/main.js';
 Vue.use(GlobalComponent);
@@ -22,6 +24,8 @@ Vue.use(new VueSocketIO({
 }))
 
 Vue.config.productionTip = false
+
+Vue.prototype.$bus = new Cache();
 
 new Vue({
   router,
