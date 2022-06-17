@@ -28,9 +28,6 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  created() {
-    this.$store.commit("ROLE_PERMISSION_MENU_LIST");
-  },
   computed: {
     ...mapState({
       menu: (state) => state.role.rolePermissionMenuList,
@@ -38,16 +35,10 @@ export default {
   },
   methods: {
     handleCheckAllChange(val, item) {
-      console.log(val);
       item.checkedChildren = (() => {
         let res = [];
         item.children.forEach((item) => {
-          if (val && item.modifiable) {
-            res.push(item.name);
-          }
-          if(!val && !item.modifiable){
-            res.push(item.name);
-          }
+          if (val || (!val && !item.modifiable)) res.push(item.name);
         });
         return res;
       })();

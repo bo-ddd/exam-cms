@@ -14,14 +14,12 @@ class RolePermissionMenuList {
     result() {
         const { permissionTree } = this;
         this.datable = [];
-
         return menu.map((menuItem) => {
             let data = JSON.parse(JSON.stringify(menuItem));
 
             // 找到可以配置的权限数据;
             let datable = permissionTree.find(permisstion => permisstion.title == data.label);
             if (datable) this.datable.push(datable)
-
             data.children = this.getChildrenValue(data, datable);
             data.checkedChildren = this.getCheckedChildrenValue(data, datable);
             data.isIndeterminate = Boolean(data.checkedChildren.length) && data.checkedChildren.length < data.children.length;
@@ -31,7 +29,7 @@ class RolePermissionMenuList {
     }
     getChildrenValue(menuRow, permission) {
         menuRow.children.forEach(item => {
-            item.modifiable = Boolean(permission);
+            item.modifiable = permission && permission.children ? permission.children.some(perItem => perItem.title == item.label) :  false;
             item.disabled = !permission ? true : !permission.children.some(perItem => perItem.title == item.label)
         })
         return menuRow.children;
